@@ -56,12 +56,6 @@
 		815FE72B1D497D720085FDA5 /* SRConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 815FE7251D497D720085FDA5 /* SRConstants.m */; };
 		815FE72C1D497D720085FDA5 /* SRConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 815FE7251D497D720085FDA5 /* SRConstants.m */; };
 		815FE72D1D497D720085FDA5 /* SRConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 815FE7251D497D720085FDA5 /* SRConstants.m */; };
-		817491A91D1C8C33006E09DF /* SRMutex.h in Headers */ = {isa = PBXBuildFile; fileRef = 817491A61D1C8C33006E09DF /* SRMutex.h */; };
-		817491AA1D1C8C33006E09DF /* SRMutex.h in Headers */ = {isa = PBXBuildFile; fileRef = 817491A61D1C8C33006E09DF /* SRMutex.h */; };
-		817491AB1D1C8C33006E09DF /* SRMutex.h in Headers */ = {isa = PBXBuildFile; fileRef = 817491A61D1C8C33006E09DF /* SRMutex.h */; };
-		817491AD1D1C8C33006E09DF /* SRMutex.m in Sources */ = {isa = PBXBuildFile; fileRef = 817491A71D1C8C33006E09DF /* SRMutex.m */; };
-		817491AE1D1C8C33006E09DF /* SRMutex.m in Sources */ = {isa = PBXBuildFile; fileRef = 817491A71D1C8C33006E09DF /* SRMutex.m */; };
-		817491AF1D1C8C33006E09DF /* SRMutex.m in Sources */ = {isa = PBXBuildFile; fileRef = 817491A71D1C8C33006E09DF /* SRMutex.m */; };
 		817995871CE139700084DA37 /* SRDelegateController.h in Headers */ = {isa = PBXBuildFile; fileRef = 817995841CE139700084DA37 /* SRDelegateController.h */; };
 		817995881CE139700084DA37 /* SRDelegateController.h in Headers */ = {isa = PBXBuildFile; fileRef = 817995841CE139700084DA37 /* SRDelegateController.h */; };
 		817995891CE139700084DA37 /* SRDelegateController.h in Headers */ = {isa = PBXBuildFile; fileRef = 817995841CE139700084DA37 /* SRDelegateController.h */; };
@@ -155,7 +149,6 @@
 		81D6476A1D2CA78800690609 /* SRIOConsumerPool.m in Sources */ = {isa = PBXBuildFile; fileRef = 81B31C121CDC404100D86D43 /* SRIOConsumerPool.m */; };
 		81D6476B1D2CA78800690609 /* SRURLUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 81B22EE31CE43ECC0073C636 /* SRURLUtilities.m */; };
 		81D6476C1D2CA78800690609 /* SRProxyConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = 4861E7741D022211002FAB1D /* SRProxyConnect.m */; };
-		81D6476D1D2CA78800690609 /* SRMutex.m in Sources */ = {isa = PBXBuildFile; fileRef = 817491A71D1C8C33006E09DF /* SRMutex.m */; };
 		81D6476E1D2CA78800690609 /* SRRunLoopThread.m in Sources */ = {isa = PBXBuildFile; fileRef = 81B31C5E1CDC444900D86D43 /* SRRunLoopThread.m */; };
 		81D6476F1D2CA78800690609 /* SRLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 81900A4B1D18C9CC0015A290 /* SRLog.m */; };
 		81D647701D2CA78800690609 /* SRHash.m in Sources */ = {isa = PBXBuildFile; fileRef = 81B31C2C1CDC406B00D86D43 /* SRHash.m */; };
@@ -177,7 +170,6 @@
 		81D647831D2CA78800690609 /* SRRandom.h in Headers */ = {isa = PBXBuildFile; fileRef = 81C22BF61D1256E1007BFDDF /* SRRandom.h */; };
 		81D647841D2CA78800690609 /* SRHTTPConnectMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 81C22BC01D124168007BFDDF /* SRHTTPConnectMessage.h */; };
 		81D647851D2CA78800690609 /* SRDelegateController.h in Headers */ = {isa = PBXBuildFile; fileRef = 817995841CE139700084DA37 /* SRDelegateController.h */; };
-		81D647861D2CA78800690609 /* SRMutex.h in Headers */ = {isa = PBXBuildFile; fileRef = 817491A61D1C8C33006E09DF /* SRMutex.h */; };
 		81D647871D2CA78800690609 /* SRError.h in Headers */ = {isa = PBXBuildFile; fileRef = 81B22EC31CE42D7E0073C636 /* SRError.h */; };
 		81D647881D2CA78800690609 /* SRRunLoopThread.h in Headers */ = {isa = PBXBuildFile; fileRef = 81B31C5D1CDC444900D86D43 /* SRRunLoopThread.h */; };
 		81D647B51D2CA8E200690609 /* SocketRocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81D6478D1D2CA78800690609 /* SocketRocket.framework */; };
@@ -277,8 +269,6 @@
 		811934B11CDAF711003AB243 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		815FE7241D497D720085FDA5 /* SRConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SRConstants.h; path = SocketRocket/Internal/SRConstants.h; sourceTree = SOURCE_ROOT; };
 		815FE7251D497D720085FDA5 /* SRConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SRConstants.m; path = SocketRocket/Internal/SRConstants.m; sourceTree = SOURCE_ROOT; };
-		817491A61D1C8C33006E09DF /* SRMutex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRMutex.h; sourceTree = "<group>"; };
-		817491A71D1C8C33006E09DF /* SRMutex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRMutex.m; sourceTree = "<group>"; };
 		817995841CE139700084DA37 /* SRDelegateController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRDelegateController.h; sourceTree = "<group>"; };
 		817995851CE139700084DA37 /* SRDelegateController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRDelegateController.m; sourceTree = "<group>"; };
 		8179967E1CE184F40084DA37 /* SRAutobahnUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRAutobahnUtilities.h; sourceTree = "<group>"; };
@@ -534,8 +524,6 @@
 				81C22BC11D124168007BFDDF /* SRHTTPConnectMessage.m */,
 				81900A4A1D18C9CC0015A290 /* SRLog.h */,
 				81900A4B1D18C9CC0015A290 /* SRLog.m */,
-				817491A61D1C8C33006E09DF /* SRMutex.h */,
-				817491A71D1C8C33006E09DF /* SRMutex.m */,
 				81C22BF61D1256E1007BFDDF /* SRRandom.h */,
 				81C22BF71D1256E1007BFDDF /* SRRandom.m */,
 				815FE7241D497D720085FDA5 /* SRConstants.h */,
@@ -754,7 +742,6 @@
 				8117C4311D30779900784D79 /* NSRunLoop+SRWebSocketPrivate.h in Headers */,
 				81C22BC31D124168007BFDDF /* SRHTTPConnectMessage.h in Headers */,
 				817995871CE139700084DA37 /* SRDelegateController.h in Headers */,
-				817491A91D1C8C33006E09DF /* SRMutex.h in Headers */,
 				81B22EC61CE42D7E0073C636 /* SRError.h in Headers */,
 				81B31C601CDC444900D86D43 /* SRRunLoopThread.h in Headers */,
 				F5391CBF1D2F4B4700606A81 /* SRSIMDHelpers.h in Headers */,
@@ -783,7 +770,6 @@
 				8117C4331D30779900784D79 /* NSRunLoop+SRWebSocketPrivate.h in Headers */,
 				81C22BC51D124168007BFDDF /* SRHTTPConnectMessage.h in Headers */,
 				817995891CE139700084DA37 /* SRDelegateController.h in Headers */,
-				817491AB1D1C8C33006E09DF /* SRMutex.h in Headers */,
 				81B22EC81CE42D7E0073C636 /* SRError.h in Headers */,
 				81B31C621CDC444900D86D43 /* SRRunLoopThread.h in Headers */,
 				F5391CC11D2F4B4700606A81 /* SRSIMDHelpers.h in Headers */,
@@ -812,7 +798,6 @@
 				8117C4301D30779900784D79 /* NSRunLoop+SRWebSocketPrivate.h in Headers */,
 				81D647841D2CA78800690609 /* SRHTTPConnectMessage.h in Headers */,
 				81D647851D2CA78800690609 /* SRDelegateController.h in Headers */,
-				81D647861D2CA78800690609 /* SRMutex.h in Headers */,
 				81D647871D2CA78800690609 /* SRError.h in Headers */,
 				81D647881D2CA78800690609 /* SRRunLoopThread.h in Headers */,
 				F5391CBE1D2F4B4700606A81 /* SRSIMDHelpers.h in Headers */,
@@ -841,7 +826,6 @@
 				8117C4321D30779900784D79 /* NSRunLoop+SRWebSocketPrivate.h in Headers */,
 				81C22BC41D124168007BFDDF /* SRHTTPConnectMessage.h in Headers */,
 				817995881CE139700084DA37 /* SRDelegateController.h in Headers */,
-				817491AA1D1C8C33006E09DF /* SRMutex.h in Headers */,
 				81B22EC71CE42D7E0073C636 /* SRError.h in Headers */,
 				81B31C611CDC444900D86D43 /* SRRunLoopThread.h in Headers */,
 				F5391CC01D2F4B4700606A81 /* SRSIMDHelpers.h in Headers */,
@@ -1044,7 +1028,6 @@
 				81B31C211CDC404100D86D43 /* SRIOConsumerPool.m in Sources */,
 				81B22EE91CE43ECC0073C636 /* SRURLUtilities.m in Sources */,
 				8133640C1D091E1B0062E28D /* SRProxyConnect.m in Sources */,
-				817491AD1D1C8C33006E09DF /* SRMutex.m in Sources */,
 				81B31C641CDC444900D86D43 /* SRRunLoopThread.m in Sources */,
 				81900A511D18C9CC0015A290 /* SRLog.m in Sources */,
 				81B31C321CDC406B00D86D43 /* SRHash.m in Sources */,
@@ -1070,7 +1053,6 @@
 				81B31C231CDC404100D86D43 /* SRIOConsumerPool.m in Sources */,
 				81B22EEB1CE43ECC0073C636 /* SRURLUtilities.m in Sources */,
 				8133640F1D091E1C0062E28D /* SRProxyConnect.m in Sources */,
-				817491AF1D1C8C33006E09DF /* SRMutex.m in Sources */,
 				81B31C661CDC444900D86D43 /* SRRunLoopThread.m in Sources */,
 				81900A531D18C9CC0015A290 /* SRLog.m in Sources */,
 				81B31C341CDC406B00D86D43 /* SRHash.m in Sources */,
@@ -1096,7 +1078,6 @@
 				81D6476A1D2CA78800690609 /* SRIOConsumerPool.m in Sources */,
 				81D6476B1D2CA78800690609 /* SRURLUtilities.m in Sources */,
 				81D6476C1D2CA78800690609 /* SRProxyConnect.m in Sources */,
-				81D6476D1D2CA78800690609 /* SRMutex.m in Sources */,
 				81D6476E1D2CA78800690609 /* SRRunLoopThread.m in Sources */,
 				81D6476F1D2CA78800690609 /* SRLog.m in Sources */,
 				81D647701D2CA78800690609 /* SRHash.m in Sources */,
@@ -1133,7 +1114,6 @@
 				81B31C221CDC404100D86D43 /* SRIOConsumerPool.m in Sources */,
 				81B22EEA1CE43ECC0073C636 /* SRURLUtilities.m in Sources */,
 				8133640E1D091E1B0062E28D /* SRProxyConnect.m in Sources */,
-				817491AE1D1C8C33006E09DF /* SRMutex.m in Sources */,
 				81B31C651CDC444900D86D43 /* SRRunLoopThread.m in Sources */,
 				81900A521D18C9CC0015A290 /* SRLog.m in Sources */,
 				81B31C331CDC406B00D86D43 /* SRHash.m in Sources */,
@@ -1238,7 +1218,6 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5J5JDHZHJ2;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
@@ -1250,7 +1229,6 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5J5JDHZHJ2;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
@@ -1326,7 +1304,6 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5J5JDHZHJ2;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TestChat.app/TestChat";
 			};
@@ -1339,7 +1316,6 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5J5JDHZHJ2;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TestChat.app/TestChat";
 			};

@@ -14,6 +14,4 @@ PRODUCT_NAME = TestChat
 PRODUCT_MODULE_NAME = TestChat
 PRODUCT_BUNDLE_IDENTIFIER = com.facebook.socketrocket.testchat
 
-IPHONEOS_DEPLOYMENT_TARGET = 8.0
-
 INFOPLIST_FILE = $(SRCROOT)/TestChat/TestChat-Info.plist
