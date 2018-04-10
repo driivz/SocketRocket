@@ -17,7 +17,7 @@
 
 @interface SRProxyConnect() <NSStreamDelegate>
 
-@property (nonatomic, strong) NSURL *url;
+@property (nonatomic, copy  ) NSURL *url;
 @property (nonatomic, strong) NSInputStream *inputStream;
 @property (nonatomic, strong) NSOutputStream *outputStream;
 
@@ -47,16 +47,15 @@
 #pragma mark - Init
 ///--------------------------------------
 
--(instancetype)initWithURL:(NSURL *)url
+- (instancetype)initWithURL:(NSURL *)url
 {
-    self = [super init];
-    if (!self) return self;
-
-    _url = url;
-    _connectionRequiresSSL = SRURLRequiresSSL(url);
-
-    _writeQueue = dispatch_queue_create("com.facebook.socketrocket.proxyconnect.write", DISPATCH_QUEUE_SERIAL);
-    _inputQueue = [NSMutableArray arrayWithCapacity:2];
+    if ((self = [super init])) {
+        _url = url;
+        _connectionRequiresSSL = SRURLRequiresSSL(url);
+        
+        _writeQueue = dispatch_queue_create("com.facebook.socketrocket.proxyconnect.write", DISPATCH_QUEUE_SERIAL);
+        _inputQueue = [NSMutableArray arrayWithCapacity:2];
+    }
 
     return self;
 }
@@ -121,7 +120,7 @@
 {
     SRDebugLog(@"_failWithError, return error");
     if (!error) {
-        error = SRHTTPErrorWithCodeDescription(500, 2132,@"Proxy Error");
+        error = SRHTTPErrorWithCodeDescription(500, 2132, @"Proxy Error");
     }
 
     if (_receivedHTTPHeaders) {
@@ -161,7 +160,7 @@
         [self _openConnection];
         return;                 // no proxy
     }
-    NSDictionary *settings = [proxies objectAtIndex:0];
+    NSDictionary *settings = proxies.firstObject;
     NSString *proxyType = settings[(NSString *)kCFProxyTypeKey];
     if ([proxyType isEqualToString:(NSString *)kCFProxyTypeAutoConfigurationURL]) {
         NSURL *pacURL = settings[(NSString *)kCFProxyAutoConfigurationURLKey];
@@ -189,14 +188,14 @@
         _httpProxyHost = settings[(NSString *)kCFProxyHostNameKey];
         NSNumber *portValue = settings[(NSString *)kCFProxyPortNumberKey];
         if (portValue) {
-            _httpProxyPort = [portValue intValue];
+            _httpProxyPort = portValue.intValue;
         }
     }
     if ([proxyType isEqualToString:(NSString *)kCFProxyTypeSOCKS]) {
         _socksProxyHost = settings[(NSString *)kCFProxyHostNameKey];
         NSNumber *portValue = settings[(NSString *)kCFProxyPortNumberKey];
         if (portValue)
-            _socksProxyPort = [portValue intValue];
+            _socksProxyPort = portValue.intValue;
         _socksProxyUsername = settings[(NSString *)kCFProxyUsernameKey];
         _socksProxyPassword = settings[(NSString *)kCFProxyPasswordKey];
     }
@@ -213,7 +212,7 @@
 {
     SRDebugLog(@"SRWebSocket fetchPAC:%@", PACurl);
 
-    if ([PACurl isFileURL]) {
+    if (PACurl.fileURL) {
         NSError *error = nil;
         NSString *script = [NSString stringWithContentsOfURL:PACurl
                                                 usedEncoding:NULL
@@ -227,7 +226,7 @@
         return;
     }
 
-    NSString *scheme = [PACurl.scheme lowercaseString];
+    NSString *scheme = (PACurl.scheme).lowercaseString;
     if (![scheme isEqualToString:@"http"] && ![scheme isEqualToString:@"https"]) {
         // Don't know how to read data from this URL, we'll have to give up
         // We'll simply assume no proxies, and start the request as normal
@@ -272,8 +271,8 @@
         httpURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@", _url.host]];
 
     NSArray *proxies = CFBridgingRelease(CFNetworkCopyProxiesForAutoConfigurationScript((__bridge CFStringRef)script,(__bridge CFURLRef)httpURL, &err));
-    if (!err && [proxies count] > 0) {
-        NSDictionary *settings = [proxies objectAtIndex:0];
+    if (!err && proxies.count > 0) {
+        NSDictionary *settings = proxies.firstObject;
         NSString *proxyType = settings[(NSString *)kCFProxyTypeKey];
         [self _readProxySettingWithType:proxyType settings:settings];
     }
@@ -464,7 +463,7 @@ static NSTimeInterval const SRProxyConnectWriteTimeout = 5.0;
         if (!outStream) {
             return;
         }
-        while (![outStream hasSpaceAvailable]) {
+        while (!outStream.hasSpaceAvailable) {
             usleep(100); //wait until the socket is ready
             timeout -= 100;
             if (timeout < 0) {

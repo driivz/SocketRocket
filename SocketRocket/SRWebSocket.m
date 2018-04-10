@@ -44,12 +44,6 @@
 #error SocketRocket must be compiled with ARC enabled
 #endif
 
-__attribute__((used)) static void importCategories()
-{
-    import_NSURLRequest_SRWebSocket();
-    import_NSRunLoop_SRWebSocket();
-}
-
 typedef struct {
     BOOL fin;
     //  BOOL rsv1;
@@ -88,7 +82,7 @@ NSString *const SRHTTPResponseErrorKey = @"HTTPResponseStatusCode";
     OSSpinLock _propertyLock;
 
     dispatch_queue_t _workQueue;
-    NSMutableArray<SRIOConsumer *> *_consumers;
+    NSMutableArray <SRIOConsumer *> *_consumers;
 
     NSInputStream *_inputStream;
     NSOutputStream *_outputStream;
@@ -575,9 +569,9 @@ NSString *const SRHTTPResponseErrorKey = @"HTTPResponseStatusCode";
 {
     typeof(self) weak = self;
     dispatch_async(_workQueue, ^{
-        if (self->_readyState != SR_CLOSED) {
+        if (weak.readyState != SR_CLOSED) {
             weak->_failed = YES;
-            self->_readyState = SR_CLOSED;
+            weak.readyState = SR_CLOSED;
             [weak.delegateController performDelegateBlock:^(id<SRWebSocketDelegate>  _Nullable delegate, SRDelegateAvailableMethods availableMethods) {
                 if (availableMethods.didFailWithError) {
                     __strong typeof(weak) strong = weak;
@@ -1171,7 +1165,7 @@ static const uint8_t SRPayloadLenMask   = 0x7F;
 
 - (void)removeAllFromRunLoops {
     for (NSArray *runLoop in [_scheduledRunloops copy]) {
-        [self unscheduleFromRunLoop:[runLoop objectAtIndex:0] forMode:[runLoop objectAtIndex:1]];
+        [self unscheduleFromRunLoop:runLoop[0] forMode:runLoop[1]];
     }
 }
 
@@ -1252,7 +1246,7 @@ static const char CRLFCRLFBytes[] = {'\r', '\n', '\r', '\n'};
         return didWork;
     }
 
-    SRIOConsumer *consumer = [_consumers objectAtIndex:0];
+    SRIOConsumer *consumer = _consumers.firstObject;
 
     size_t bytesNeeded = consumer.bytesNeeded;
 
@@ -1486,7 +1480,7 @@ static const size_t SRFrameHeaderOverhead = 32;
         }
 
         case NSStreamEventErrorOccurred: {
-            SRDebugLog(@"NSStreamEventErrorOccurred %@ %@", aStream, [[aStream streamError] copy]);
+            SRDebugLog(@"NSStreamEventErrorOccurred %@ %@", aStream, [aStream.streamError copy]);
             /// TODO specify error better!
             [self _failWithError:aStream.streamError];
             _readBufferOffset = 0;
@@ -1503,8 +1497,8 @@ static const size_t SRFrameHeaderOverhead = 32;
             } else {
                 typeof(self) weak = self;
                 dispatch_async(_workQueue, ^{
-                    if (self->_readyState != SR_CLOSED) {
-                        self->_readyState = SR_CLOSED;
+                    if (weak.readyState != SR_CLOSED) {
+                        weak.readyState = SR_CLOSED;
                         [weak _scheduleCleanup];
                     }
 
@@ -1600,14 +1594,14 @@ static const size_t SRFrameHeaderOverhead = 32;
 #ifdef HAS_ICU
 
 static inline int32_t validate_dispatch_data_partial_string(NSData *data) {
-    if ([data length] > INT32_MAX) {
+    if (data.length > INT32_MAX) {
         // INT32_MAX is the limit so long as this Framework is using 32 bit ints everywhere.
         return -1;
     }
 
-    int32_t size = (int32_t)[data length];
+    int32_t size = (int32_t)data.length;
 
-    const void * contents = [data bytes];
+    const void *contents = data.bytes;
     const uint8_t *str = (const uint8_t *)contents;
 
     UChar32 codepoint = 1;
@@ -1639,7 +1633,7 @@ static inline int32_t validate_dispatch_data_partial_string(NSData *data) {
         }
     }
 
-    if (size != -1 && ![[NSString alloc] initWithBytesNoCopy:(char *)[data bytes] length:size encoding:NSUTF8StringEncoding freeWhenDone:NO]) {
+    if (size != -1 && ![[NSString alloc] initWithBytesNoCopy:(char *)data.bytes length:size encoding:NSUTF8StringEncoding freeWhenDone:NO]) {
         size = -1;
     }
 

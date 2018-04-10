@@ -11,7 +11,7 @@
 
 #import <SocketRocket/SRWebSocket.h>
 
-@interface SRTWebSocketOperation : NSOperation <SRWebSocketDelegate>
+@interface SRTWebSocketOperation : NSOperation
 
 @property (nonatomic) BOOL isFinished;
 @property (nonatomic) BOOL isExecuting;
@@ -21,8 +21,13 @@
 - (instancetype)initWithURL:(NSURL *)URL;
 
 // We override these methods.  Please call super
-- (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean NS_REQUIRES_SUPER;
-- (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error NS_REQUIRES_SUPER;
+- (void)webSocket:(SRWebSocket *)webSocket
+ didCloseWithCode:(NSInteger)code
+           reason:(NSString *)reason
+         wasClean:(BOOL)wasClean NS_REQUIRES_SUPER;
+
+- (void)webSocket:(SRWebSocket *)webSocket
+ didFailWithError:(NSError *)error NS_REQUIRES_SUPER;
 
 - (BOOL)waitUntilFinishedWithTimeout:(NSTimeInterval)timeout;
 

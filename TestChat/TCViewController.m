@@ -172,6 +172,7 @@
 - (void)webSocket:(SRWebSocket *)webSocket didReceivePong:(NSData *)pongPayload
 {
     NSLog(@"WebSocket received pong");
+    [self _addMessage:[[TCMessage alloc] initWithMessage:@"pong" incoming:YES]];
 }
 
 ///--------------------------------------

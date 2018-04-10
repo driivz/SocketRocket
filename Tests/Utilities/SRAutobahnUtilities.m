@@ -54,7 +54,7 @@ BOOL SRAutobahnIsValidResultBehavior(NSString *caseIdentifier, NSString *behavio
     if ([behavior isEqualToString:@"OK"]) {
         return YES;
     }
-
+    
     NSArray *cases = SRAutobahnTestConfiguration()[behavior];
     for (NSString *caseId in cases) {
         if ([caseIdentifier hasPrefix:caseId]) {
@@ -71,10 +71,10 @@ BOOL SRAutobahnIsValidResultBehavior(NSString *caseIdentifier, NSString *behavio
 BOOL SRRunLoopRunUntil(BOOL (^predicate)(), NSTimeInterval timeout)
 {
     NSDate *timeoutDate = [NSDate dateWithTimeIntervalSinceNow:timeout];
-
+    
     NSTimeInterval timeoutTime = [timeoutDate timeIntervalSinceReferenceDate];
     NSTimeInterval currentTime = [NSDate timeIntervalSinceReferenceDate];
-
+    
     while (!predicate() && currentTime < timeoutTime) {
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
         currentTime = [NSDate timeIntervalSinceReferenceDate];
@@ -92,12 +92,12 @@ NSUInteger SRAutobahnTestCaseCount(void)
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         SRAutobahnOperation *operation = SRAutobahnTestCaseCountOperation(SRAutobahnTestServerURL(),
-                                                                           SRAutobahnTestAgentName(),
-                                                                           ^(NSInteger caseCount) {
-                                                                               count = caseCount;
-                                                                           });
+                                                                          SRAutobahnTestAgentName(),
+                                                                          ^(NSInteger caseCount) {
+                                                                              count = caseCount;
+                                                                          });
         [operation start];
-
+        
         NSCAssert([operation waitUntilFinishedWithTimeout:10], @"Timed out fetching test case count.");
         NSCAssert(!operation.error, @"CaseGetter should have successfully returned the number of testCases. Instead got error %@", operation.error);
     });
@@ -111,7 +111,7 @@ NSDictionary<NSString *, id> *SRAutobahnTestCaseInfo(NSInteger caseNumber)
         caseInfo = info;
     });
     [operation start];
-
+    
     NSCAssert([operation waitUntilFinishedWithTimeout:10], @"Timed out fetching test case info %ld.", (long)caseNumber);
     NSCAssert(!operation.error, @"Updating the report should not have errored");
     return caseInfo;

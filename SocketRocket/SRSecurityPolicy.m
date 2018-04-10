@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation SRSecurityPolicy
 
-+ (instancetype)defaultPolicy
++ (SRSecurityPolicy*)defaultPolicy
 {
     return [self new];
 }

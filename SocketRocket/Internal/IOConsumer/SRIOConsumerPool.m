@@ -39,7 +39,7 @@
 {
     SRIOConsumer *consumer = nil;
     if (_bufferedConsumers.count) {
-        consumer = [_bufferedConsumers lastObject];
+        consumer = _bufferedConsumers.lastObject;
         [_bufferedConsumers removeLastObject];
     } else {
         consumer = [[SRIOConsumer alloc] init];

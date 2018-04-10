@@ -67,14 +67,14 @@
         CFRunLoopAddSource(CFRunLoopGetCurrent(), source, kCFRunLoopDefaultMode);
         CFRelease(source);
 
-        while ([_runLoop runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]]) {
+        while ([_runLoop runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]]) {
 
         }
         assert(NO);
     }
 }
 
-- (NSRunLoop *)runLoop;
+- (NSRunLoop *)runLoop
 {
     dispatch_group_wait(_waitGroup, DISPATCH_TIME_FOREVER);
     return _runLoop;

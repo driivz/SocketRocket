@@ -29,18 +29,16 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma clang diagnostic ignored "-Wdeprecated"
 
     // Do not validate certificate chain since we're pinning to specific certificates.
-    self = [super initWithCertificateChainValidationEnabled:NO];
-
+    if ((self = [super initWithCertificateChainValidationEnabled:NO]))
 #pragma clang diagnostic pop
-
-    if (!self) { return self; }
-
-    if (pinnedCertificates.count == 0) {
-        @throw [NSException exceptionWithName:@"Creating security policy failed."
-                                       reason:@"Must specify at least one certificate when creating a pinning policy."
-                                     userInfo:nil];
+    {
+        if (pinnedCertificates.count == 0) {
+            @throw [NSException exceptionWithName:@"Creating security policy failed."
+                                           reason:@"Must specify at least one certificate when creating a pinning policy."
+                                         userInfo:nil];
+        }
+        _pinnedCertificates = [pinnedCertificates copy];
     }
-    _pinnedCertificates = [pinnedCertificates copy];
 
     return self;
 }

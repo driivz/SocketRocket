@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 {
     NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
     components.path = (components.path ? [components.path stringByAppendingPathComponent:path] : path);
-
+    
     NSMutableArray<NSURLQueryItem *> *queryItems = [NSMutableArray arrayWithCapacity:2];
     if (caseNumber) {
         [queryItems addObject:[NSURLQueryItem queryItemWithName:@"case" value:caseNumber.stringValue]];
@@ -40,10 +40,10 @@ NS_ASSUME_NONNULL_BEGIN
     components.queryItems = queryItems;
     self = [self initWithURL:components.URL];
     if (!self) return self;
-
+    
     _textMessageHandler = [textMessageHandler copy];
     _dataMessageHandler = [dataMessageHandler copy];
-
+    
     return self;
 }
 

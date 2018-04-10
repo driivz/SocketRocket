@@ -13,19 +13,13 @@
 
 #import "SRAutobahnUtilities.h"
 
-@interface SRTWebSocketOperation ()
-
+@interface SRTWebSocketOperation () <SRWebSocketDelegate>
+@property (nonatomic, assign) NSInteger testNumber;
+@property (nonatomic, strong) SRWebSocket *webSocket;
+@property (nonatomic, copy) NSURL *url;
 @end
 
-@implementation SRTWebSocketOperation {
-    NSInteger _testNumber;
-    SRWebSocket *_webSocket;
-    NSURL *_url;
-}
-
-@synthesize isFinished = _isFinished;
-@synthesize isExecuting = _isExecuting;
-@synthesize error = _error;
+@implementation SRTWebSocketOperation
 
 - (instancetype)initWithURL:(NSURL *)URL
 {
@@ -35,6 +29,7 @@
         _isExecuting = NO;
         _isFinished = NO;
     }
+    
     return self;
 }
 
@@ -45,13 +40,14 @@
 
 - (void)start
 {
+    self.isExecuting = YES;
+    
     typeof(self) weak = self;
     dispatch_async(dispatch_get_main_queue(), ^{
-        weak->_webSocket = [[SRWebSocket alloc] initWithURLRequest:[NSURLRequest requestWithURL:weak->_url]];
-        weak->_webSocket.delegate = self;
-        [weak->_webSocket open];
+        weak.webSocket = [[SRWebSocket alloc] initWithURLRequest:[NSURLRequest requestWithURL:weak.url]];
+        weak.webSocket.delegate = self;
+        [weak.webSocket open];
     });
-    self.isExecuting = YES;
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean;
@@ -84,8 +80,10 @@
     if (self.isFinished) {
         return YES;
     }
+    
+    __weak typeof(self) weak = self;
     return SRRunLoopRunUntil(^BOOL{
-        return self.isFinished;
+        return weak.isFinished;
     }, timeout);
 }
 
