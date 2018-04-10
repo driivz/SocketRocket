@@ -27,7 +27,7 @@
 @synthesize isExecuting = _isExecuting;
 @synthesize error = _error;
 
-- (instancetype)initWithURL:(NSURL *)URL;
+- (instancetype)initWithURL:(NSURL *)URL
 {
     self = [super init];
     if (self) {
@@ -38,17 +38,18 @@
     return self;
 }
 
-- (BOOL)isConcurrent;
+- (BOOL)isConcurrent
 {
     return YES;
 }
 
-- (void)start;
+- (void)start
 {
+    typeof(self) weak = self;
     dispatch_async(dispatch_get_main_queue(), ^{
-        _webSocket = [[SRWebSocket alloc] initWithURLRequest:[NSURLRequest requestWithURL:_url]];
-        _webSocket.delegate = self;
-        [_webSocket open];
+        weak->_webSocket = [[SRWebSocket alloc] initWithURLRequest:[NSURLRequest requestWithURL:weak->_url]];
+        weak->_webSocket.delegate = self;
+        [weak->_webSocket open];
     });
     self.isExecuting = YES;
 }

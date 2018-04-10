@@ -39,10 +39,9 @@
 
 
 @interface TCViewController () <SRWebSocketDelegate, UITextViewDelegate>
-{
-    SRWebSocket *_webSocket;
-    NSMutableArray<TCMessage *> *_messages;
-}
+
+@property (nonatomic, strong) SRWebSocket *webSocket;
+@property (nonatomic, strong) NSMutableArray <TCMessage *> *messages;
 
 @end
 
@@ -77,7 +76,7 @@
 {
     [super viewDidDisappear:animated];
 
-    [_webSocket close];
+    [self.webSocket close];
     _webSocket = nil;
 }
 
@@ -87,19 +86,19 @@
 
 - (IBAction)reconnect:(id)sender
 {
-    _webSocket.delegate = nil;
-    [_webSocket close];
+    self.webSocket.delegate = nil;
+    [self.webSocket close];
 
     _webSocket = [[SRWebSocket alloc] initWithURL:[NSURL URLWithString:@"wss://echo.websocket.org"]];
-    _webSocket.delegate = self;
+    self.webSocket.delegate = self;
 
     self.title = @"Opening Connection...";
-    [_webSocket open];
+    [self.webSocket open];
 }
 
 - (void)sendPing:(id)sender;
 {
-    [_webSocket sendPing:nil error:NULL];
+    [self.webSocket sendPing:nil error:NULL];
 }
 
 ///--------------------------------------
@@ -108,7 +107,7 @@
 
 - (void)_addMessage:(TCMessage *)message
 {
-    [_messages addObject:message];
+    [self.messages addObject:message];
     [self.tableView insertRowsAtIndexPaths:@[ [NSIndexPath indexPathForRow:_messages.count - 1 inSection:0] ]
                           withRowAnimation:UITableViewRowAnimationNone];
     [self.tableView scrollRectToVisible:self.tableView.tableFooterView.frame animated:YES];
@@ -120,12 +119,12 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _messages.count;
+    return self.messages.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    TCMessage *message = _messages[indexPath.row];
+    TCMessage *message = self.messages[indexPath.row];
 
     TCChatCell *cell = [self.tableView dequeueReusableCellWithIdentifier:message.incoming ? @"ReceivedCell" : @"SentCell"
                                                             forIndexPath:indexPath];
@@ -160,14 +159,17 @@
     [self _addMessage:[[TCMessage alloc] initWithMessage:string incoming:YES]];
 }
 
-- (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean;
+- (void)webSocket:(SRWebSocket *)webSocket
+ didCloseWithCode:(NSInteger)code
+           reason:(NSString *)reason
+         wasClean:(BOOL)wasClean
 {
     NSLog(@"WebSocket closed");
     self.title = @"Connection Closed! (see logs)";
     _webSocket = nil;
 }
 
-- (void)webSocket:(SRWebSocket *)webSocket didReceivePong:(NSData *)pongPayload;
+- (void)webSocket:(SRWebSocket *)webSocket didReceivePong:(NSData *)pongPayload
 {
     NSLog(@"WebSocket received pong");
 }
@@ -182,13 +184,14 @@
         NSString *message = [textView.text stringByReplacingCharactersInRange:range withString:text];
         message = [message stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
-        [_webSocket sendString:message error:NULL];
+        [self.webSocket sendString:message error:NULL];
 
         [self _addMessage:[[TCMessage alloc] initWithMessage:message incoming:NO]];
 
         textView.text = nil;
         return NO;
     }
+    
     return YES;
 }
 
